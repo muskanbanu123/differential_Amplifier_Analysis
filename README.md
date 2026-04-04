@@ -500,6 +500,7 @@ This ensures:
 ---
 
 ## DC Operating Point Analysis  
+![differentialamplifier](diff8.png)
 
 
 Expected results:
@@ -590,6 +591,7 @@ vid(max) = 0.68 V
 ## Transient Analysis  
 
 ### Case 1: Linear Operation  
+![differentialamplifier](diff6.png)
 - Input: 100 mV  
 - Output: sinusoidal waveform  
 - No distortion  
@@ -598,6 +600,7 @@ vid(max) = 0.68 V
 ---
 
 ### Case 2: Nonlinear Operation  
+![differentialamplifier](diff7.png)
 - Input: 600 mV  
 - Output: distorted waveform  
 - One NMOS enters cutoff  
@@ -682,6 +685,7 @@ A large deviation is observed between theoretical and simulated gain due to prac
 ---
 
 ## AC Analysis  
+![differentialamplifier](diff9.jpg)
 
 ### Midband Gain  
 ≈ 5.2 dB  
