@@ -322,7 +322,7 @@ Ad(dB) ≈ 13.05 dB
 ---
 
 ## AC Analysis  
-![differentialamplifier](diff5.png)
+![differentialamplifier](diff5.jpg)
 
 Midband Gain ≈ 14.8 dB  
 
