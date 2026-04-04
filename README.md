@@ -500,7 +500,7 @@ This ensures:
 ---
 
 ## DC Operating Point Analysis  
-![differentialamplifier](diff8.png)
+![differentialamplifier](DIFF10.png)
 
 
 Expected results:
