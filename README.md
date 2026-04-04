@@ -1,5 +1,4 @@
 # differential_Amplifier_Analysis
-![CS Amplifier Circuit](lab31.png)
 # Experiment 04  
 ## Differential Amplifier Analysis  
 
@@ -142,6 +141,7 @@ Bandwidth is defined between −3 dB cutoff points.
 ---
 
 ## Circuit 1: Differential Amplifier with Resistive Load  
+![differentialamplifier](diff1.png)
 
 ### Working  
 The circuit uses two NMOS transistors with resistors connected at the drain terminals.
@@ -232,6 +232,7 @@ W ≈ 32 µm
 ---
 
 ## DC Analysis  
+![differentialamplifier](diff2.png)
 
 The DC operating point verifies that:
 - All transistors are properly biased  
@@ -269,7 +270,9 @@ Final Range:
 
 ---
 
-### Case 1: Linear Operation  
+### Case 1: Linear Operation 
+![differentialamplifier](diff3.png)
+
 - Input = 100 mV  
 - Output = clean sinusoidal waveform  
 - No distortion  
@@ -277,7 +280,8 @@ Final Range:
 
 ---
 
-### Case 2: Nonlinear Operation  
+### Case 2: Nonlinear Operation 
+![differentialamplifier](diff4.png)
 - Input = 600 mV  
 - Output shows distortion and clipping  
 - One transistor moves toward cutoff  
@@ -318,6 +322,7 @@ Ad(dB) ≈ 13.05 dB
 ---
 
 ## AC Analysis  
+![differentialamplifier](diff5.png)
 
 Midband Gain ≈ 14.8 dB  
 
