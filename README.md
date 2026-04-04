@@ -369,3 +369,374 @@ The difference between theoretical and simulated results arises due to practical
 ## Final Inference  
 
 The MOSFET differential amplifier with resistive load has been successfully designed and analyzed using LT Spice. The circuit demonstrates proper biasing, expected gain, and stable operation. Linear behavior is observed for small input signals, while distortion appears at higher inputs. The deviation between theoretical and simulated results is justified and confirms the presence of real-world non-idealities.
+
+# Circuit 2  
+## Differential Amplifier with PMOS Active Load  
+
+---
+
+## Aim  
+To design and analyze a CMOS differential amplifier using NMOS input transistors and PMOS active load, ensuring proper biasing, saturation operation, and evaluation of gain, bandwidth, and linearity through simulation.
+
+---
+
+## Given Parameters  
+- Technology: TSMC 180 nm  
+- VDD = +0.9 V  
+- VSS = −0.9 V  
+- Power Constraint: ≤ 2.2 mW  
+- Channel Length (L) = 540 nm  
+
+---
+
+## Design Objective  
+The circuit is designed to satisfy the following conditions:
+
+- Tail current ISS ≈ 1.22 mA  
+- Source node voltage Vp ≈ −0.7 V  
+- All MOSFETs must operate in saturation region  
+- Symmetrical operation under zero differential input  
+
+---
+
+## Theory  
+
+### 1. CMOS Differential Amplifier Concept  
+A CMOS differential amplifier consists of:
+
+- NMOS differential pair (M1, M2)  
+- PMOS active load (M3, M4)  
+- NMOS current source (M5)  
+
+Unlike resistive load circuits, PMOS transistors act as active loads, providing higher output resistance and improved gain.
+
+---
+
+### 2. Working Principle  
+
+The differential input is defined as:
+
+vid = vin1 − vin2  
+
+- If vin1 > vin2 → M1 conducts more current  
+- If vin2 > vin1 → M2 conducts more current  
+
+The tail current ISS is steered between the two branches.  
+The PMOS load converts current variations into output voltage.
+
+---
+
+### 3. Advantage of Active Load  
+
+- Higher output resistance  
+- Increased voltage gain  
+- Reduced area compared to resistors  
+- Better integration in IC design  
+
+---
+
+### 4. Small Signal Gain  
+
+The differential gain is given by:
+
+Av = gm × Rout  
+
+Where:
+
+- gm = transconductance of NMOS  
+- Rout = effective output resistance  
+
+For active load:
+
+Rout = ron || rop  
+
+---
+
+### 5. Large Signal Behavior  
+
+When:
+
+vid > 2VOV  
+
+One transistor turns OFF, and current flows entirely in one branch, causing distortion.
+
+---
+
+## Current Calculation  
+
+From power constraint:
+
+P = (VDD − VSS) × ISS  
+
+ISS = 2.2 mW / 1.8 V  
+
+ISS ≈ 1.22 mA  
+
+---
+
+## Transistor Dimensions  
+
+### Input Pair  
+- M1: W = 36 µm, L = 540 nm  
+- M2: W = 36 µm, L = 540 nm  
+
+### Tail Current Source  
+- M5: W = 228 µm, L = 540 nm  
+
+---
+
+## Biasing Condition  
+
+The gate voltage of M5 is adjusted such that:
+
+Vp ≈ −0.7 V  
+
+This ensures:
+
+- Stable tail current  
+- Proper saturation of M5  
+- Balanced operation  
+
+---
+
+## DC Operating Point Analysis  
+
+
+Expected results:
+
+- ISS ≈ 1.22 mA  
+- ID1 = ID2 ≈ 0.61 mA  
+- Source node voltage ≈ −0.7 V  
+- Output nodes symmetric (Vout1 ≈ Vout2)  
+
+All transistors remain in saturation.
+
+---
+
+## Input Common Mode Range (ICMR)  
+
+### Minimum Value  
+
+VICM(min) = VS + VT  
+
+VICM(min) = −0.7 + 0.36  
+
+VICM(min) = −0.34 V  
+
+---
+
+### Maximum Value  
+
+VICM(max) = VD + |VTP|  
+
+VICM(max) = 0 + 0.39  
+
+VICM(max) = 0.39 V  
+
+---
+
+### Final Range  
+
+−0.34 V ≤ VICM ≤ 0.39 V  
+
+---
+
+## Output Common Mode Range (OCMR)  
+
+### Minimum Output  
+
+Vout(min) = VS + VOVn  
+
+Vout(min) = −0.7 + 0.34  
+
+Vout(min) = −0.36 V  
+
+---
+
+### Maximum Output  
+
+Vout(max) = VDD − VOVp  
+
+Vout(max) = 0.9 − 0.25  
+
+Vout(max) = 0.65 V  
+
+---
+
+### Final Range  
+
+−0.36 V ≤ Vout ≤ 0.65 V  
+
+---
+
+## Differential Input Range (Linearity)  
+
+Maximum differential input:
+
+vid(max) = 2VOVn  
+
+vid(max) = 2 × 0.34  
+
+vid(max) = 0.68 V  
+
+---
+
+### Linear Region Condition  
+
+|vid| < √2 VOV  
+
+---
+
+## Transient Analysis  
+
+### Case 1: Linear Operation  
+- Input: 100 mV  
+- Output: sinusoidal waveform  
+- No distortion  
+- All MOSFETs in saturation  
+
+---
+
+### Case 2: Nonlinear Operation  
+- Input: 600 mV  
+- Output: distorted waveform  
+- One NMOS enters cutoff  
+- Current flows in one branch  
+
+---
+
+### Interpretation  
+
+- Small signal → balanced current sharing → linear output  
+- Large signal → current steering → distortion  
+
+---
+
+## Simulated Gain  
+
+Vin(pp) = 100 mV  
+Vout(pp) = 181 mV  
+
+Av ≈ 1.81  
+
+Av(dB) ≈ 5.15 dB  
+
+---
+
+## Theoretical Gain  
+
+### Output Resistance  
+
+ro ≈ 16.39 kΩ  
+
+ro_eff = ron || rop ≈ 8.2 kΩ  
+
+---
+
+### Transconductance  
+
+gm ≈ 4.11 mS  
+
+---
+
+### Gain  
+
+Ad = gm × Rout  
+
+Ad ≈ 33.7  
+
+Ad(dB) ≈ 30.55 dB  
+
+---
+
+## Reason for Difference Between Theoretical and Simulated Gain  
+
+A large deviation is observed between theoretical and simulated gain due to practical non-idealities.
+
+### Major Reasons  
+
+1. **Channel Length Modulation**  
+   Reduces output resistance and hence gain.
+
+2. **Finite Output Resistance of Current Source (M5)**  
+   The tail current source is not ideal, causing gain reduction.
+
+3. **Non-Ideal PMOS Active Load**  
+   M3 and M4 do not behave as perfect current sources.
+
+4. **Mobility Degradation**  
+   Reduces gm, lowering gain.
+
+5. **Variation in Overdrive Voltage**  
+   Affects operating point and gain.
+
+6. **Parasitic Capacitances**  
+   Affect both transient and AC response.
+
+7. **Large Signal Operation**  
+   Simulation may include nonlinear region effects.
+
+8. **Mismatch and Device Modeling**  
+   Realistic MOS models include second-order effects.
+
+---
+
+## AC Analysis  
+
+### Midband Gain  
+≈ 5.2 dB  
+
+### Cutoff Frequencies  
+- fL ≈ 0 Hz  
+- fH ≈ 2.2 GHz  
+
+---
+
+### Bandwidth  
+
+BW ≈ 2.2 GHz  
+
+---
+
+## Unity Gain Bandwidth (UGB)  
+
+UGB = Av × fH  
+
+UGB ≈ 1.81 × 4.8 GHz  
+
+UGB ≈ 8.69 GHz  
+
+---
+
+## Comparison of Results  
+
+| Parameter | Theoretical | Simulated |
+|----------|------------|-----------|
+| Gain (V/V) | 33.7 | 1.81 |
+| Gain (dB) | 30.55 dB | 5.15 dB |
+
+---
+
+## Discussion  
+
+The theoretical analysis assumes ideal MOSFET behavior, while simulation incorporates practical effects such as:
+
+- Channel length modulation  
+- Finite output resistance  
+- Mobility degradation  
+- Parasitic capacitances  
+
+These significantly reduce the gain in practical circuits.
+
+---
+
+## Final Inference  
+
+The CMOS differential amplifier with PMOS active load and NMOS current source has been successfully designed and analyzed.
+
+The circuit satisfies:
+- Power constraint ≤ 2.2 mW  
+- Proper biasing (Vp ≈ −0.7 V)  
+- Saturation operation for all transistors  
+
+Although the theoretical gain is high, the simulated gain is much lower due to real-world non-ideal effects. The circuit demonstrates correct functionality, expected frequency response, and clear linear-to-nonlinear transition behavior.
