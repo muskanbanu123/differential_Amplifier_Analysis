@@ -744,3 +744,5 @@ The circuit satisfies:
 - Saturation operation for all transistors  
 
 Although the theoretical gain is high, the simulated gain is much lower due to real-world non-ideal effects. The circuit demonstrates correct functionality, expected frequency response, and clear linear-to-nonlinear transition behavior.
+
+
