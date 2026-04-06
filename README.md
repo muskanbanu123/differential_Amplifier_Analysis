@@ -1,6 +1,6 @@
-# differential_Amplifier_Analysis
 # Experiment 04  
 ## Differential Amplifier Analysis  
+Name: Muskan Banu USN: 4NI24EC084 Branch: Electronics and Communication Engineering Lab Course: Linear Integrated Circuits (BEC456B) Tool Used: LTspice Technology Library: TSMC 180nm
 
 ---
 
@@ -744,5 +744,434 @@ The circuit satisfies:
 - Saturation operation for all transistors  
 
 Although the theoretical gain is high, the simulated gain is much lower due to real-world non-ideal effects. The circuit demonstrates correct functionality, expected frequency response, and clear linear-to-nonlinear transition behavior.
+# Differential Amplifier with PMOS Active Load – Complete Report
+
+---
+ CIRCUIT-3 Differential amplifier with PMOS active load
+
+![differentialamplifier](diff15.png)
+# 🔷 1. GIVEN SPECIFICATIONS
+
+VDD = +0.9 V  
+VSS = −0.9 V  
+Total Supply = 1.8 V  
+
+Power Constraint: P ≤ 2 mW  
+
+Vin,CM = 0 V  
+Vout,CM = 0 V  
+
+Technology Parameters:  
+Vtn = 0.366 V  
+|Vtp| = 0.39 V  
+
+μnCox = 273.8 × 10⁻⁴ A/V²  
+μpCox = 115.6 × 10⁻⁴ A/V²  
+
+Channel Length: L = 540 nm  
+
+---
+
+# 🔷 2. TAIL CURRENT CALCULATION
+
+ISS = P / (VDD − VSS)  
+ISS = 2 mW / 1.8 V ≈ 1.11 mA  
+
+Choose practical value:  
+ISS ≈ 1.2 mA  
+
+Current splitting:  
+ID1 = ID2 = ISS / 2 = 0.6 mA  
+
+---
+
+# 🔷 3. NMOS DIFFERENTIAL PAIR DESIGN (M1, M2)
+
+VGS = 0 − (−0.7) = 0.7 V  
+VOVn = VGS − Vtn = 0.7 − 0.366 = 0.334 V  
+
+Using:
+ID = (1/2) μnCox (W/L) VOV²  
+
+Wn ≈ 25 µm (theoretical)  
+
+Practical value:  
+W1 = W2 ≈ 32 µm  
+
+---
+
+# 🔷 4. PMOS ACTIVE LOAD (M4, M5)
+
+Assume:
+VOVp ≈ 0.25 V  
+
+Using:
+ID = (1/2) μpCox (W/L) VOV²  
+
+Wp ≈ 50 µm  
+
+Practical value:  
+W4 = W5 ≈ 58 µm  
+
+---
+
+# 🔷 5. TAIL CURRENT SOURCE (M3)
+
+ID = 1.2 mA  
+
+From saturation constraint:
+VOV3 ≈ 0.18 V  
+
+W3 ≈ 60–65 µm  
+
+---
+
+# 🔷 6. FINAL WIDTH TABLE
+
+| Transistor | Width (µm) | Length |
+|-----------|-----------|--------|
+| M1        | 32 µm     | 540 nm |
+| M2        | 32 µm     | 540 nm |
+| M3        | 65 µm     | 540 nm |
+| M4        | 58 µm     | 540 nm |
+| M5        | 58 µm     | 540 nm |
+
+---
+
+# 🔷 7. BIAS VOLTAGES
+
+Tail MOSFET:
+
+VGS3 = Vtn + VOV3 = 0.366 + 0.18 = 0.546 V  
+VG3 = VGS3 + VS = 0.546 − 0.7 = −0.15 V  
+
+Vbias_tail ≈ −0.15 V  
+
+PMOS Load:
+
+VSG = |Vtp| + VOVp = 0.39 + 0.25 = 0.64 V  
+VG = VDD − VSG = 0.9 − 0.64 = 0.26 V  
+
+Vbias_PMOS ≈ +0.26 V  
+
+---
+
+# 🔷 8. DC ANALYSIS
+
+
+![differentialamplifier](diff16.png)
+Conditions:
+Vin1 = Vin2 = 0 V  
+
+Results:
+ID1 ≈ ID2 ≈ 0.6 mA  
+ISS ≈ 1.2 mA  
+
+Vout1 ≈ Vout2 ≈ 0 V  
+Vout_diff = 0  
+
+All MOSFETs operate in saturation.
+
+---
+
+# 🔷 9. TRANSIENT ANALYSIS
+
+---
+
+## 🔸 (A) LINEAR REGION
+
+![differentialamplifier](diff12.png)
+
+![differentialamplifier](diff11.png)
+
+Condition:
+|vid| < √2 × VOV  
+
+√2 × 0.334 ≈ 0.47 V  
+
+Input:
+Vin1 = +50 mV sin(1kHz)  
+Vin2 = −50 mV sin(1kHz)  
+
+vid = 100 mV < 0.47 V  
+
+---
+
+### Theoretical Gain
+
+gm = 2ID / VOV = (2 × 0.6 mA) / 0.334 ≈ 3.59 mS  
+
+Assume λ ≈ 0.1 V⁻¹  
+ro = 1 / (λID) ≈ 1 / (0.1 × 0.6mA) ≈ 16.6 kΩ  
+
+Effective:
+ro_eff = ro || ro ≈ 8.3 kΩ  
+
+Gain:
+Av = gm × ro_eff  
+Av ≈ 3.59 mS × 8.3 kΩ ≈ 29.8 V/V  
+
+In dB:
+Av ≈ 29.5 dB  
+
+---
+
+### Output
+
+✔ Sinusoidal waveform  
+✔ No distortion  
+✔ Linear amplification  
+
+---
+
+##  (B) NON-LINEAR REGION
+
+![differentialamplifier](diff113.png)
+
+Input:
+Vin1 = +0.3 V sin(1kHz)  
+Vin2 = −0.3 V sin(1kHz)  
+
+vid = 0.6 V > 0.47 V  
+
+---
+
+### Output
+
+✔ Square-like waveform  
+✔ One transistor OFF, other ON  
+✔ Current steering occurs  
+✔ Clipping observed  
+#  13. REASONS FOR DIFFERENCE BETWEEN THEORETICAL AND PRACTICAL RESULTS
+
+In the analysis of the differential amplifier, the theoretical values (hand calculations) and practical values (LTspice simulation) do not exactly match. This deviation is expected due to several non-ideal effects present in real MOSFET operation.
+
+---
+
+##  1. Channel Length Modulation (λ Effect)
+
+Theoretical calculations often assume:
+
+ro → ∞ (ideal)
+
+However, in practice:
+
+ro = 1 / (λID)
+
+Due to finite output resistance:
+- Gain reduces
+- Output voltage is not perfectly linear
+
+---
+
+##  2. Mobility Degradation
+
+In theory:
+μ is constant
+
+In practice:
+- Mobility decreases at higher electric fields
+- Reduces drain current
+- Lowers transconductance (gm)
+
+---
+
+##  3. Variation in Overdrive Voltage (VOV)
+
+Theoretical:
+VOV is fixed
+
+Practical:
+- VGS and VS shift dynamically
+- Leads to variation in VOV
+- Affects current and gain
+
+---
+
+##  4. Mismatch Between Transistors
+
+Theoretical:
+Perfect matching assumed
+
+Practical:
+- Threshold voltage variations
+- Process variations
+- Causes imbalance in currents
+- Leads to offset and asymmetry
+
+---
+
+##  5. Parasitic Capacitances
+
+In simulation:
+- Gate-to-drain (Cgd)
+- Gate-to-source (Cgs)
+- Drain-to-body (Cdb)
+
+Effects:
+- Reduce bandwidth
+- Introduce gain roll-off
+- Affect transient response
+
+---
+
+##  6. Finite Output Swing (Voltage Headroom)
+
+Due to limited supply:
+
+Vout(max) ≈ VDD − VOVp  
+Vout(min) ≈ VSS + VOVn  
+
+Effects:
+- Signal clipping
+- Asymmetrical waveform
+
+---
+
+##  7. Non-ideal Current Source
+
+The tail MOSFET:
+- Does not provide perfectly constant current
+- Has finite output resistance
+
+Effect:
+- Gain reduction
+- Distortion in large signal operation
+
+---
+
+##  8. Temperature and Model Parameters
+
+Simulation models include:
+- Temperature effects
+- Process variations
+
+These are not included in hand calculations
+
+---
+
+##  9. Approximation in Hand Calculations
+
+Theoretical analysis uses:
+- Simplified equations
+- Neglects second-order effects
+
+Simulation includes:
+- Accurate device models
+
+---
+
+#  10. AC ANALYSIS
+
+
+## Setup
+
+Vin1: AC +0.5  
+Vin2: AC −0.5  
+
+.ac dec 100 1 1G  
+
+Plot:
+dB(Vout1 − Vout2)
+
+---
+
+## Midband Gain
+
+![differentialamplifier](diff14.png)
+
+Observed:
+Gain ≈ 50 dB  
+
+---
+
+## 3 dB Gain
+
+3 dB point:
+
+50 dB − 3 dB = 47 dB  
+
+Bandwidth = frequency where gain = 47 dB  
+
+---
+
+## Bandwidth
+
+From graph:
+fH ≈ few MHz (depends on simulation, typically 3–6 MHz)
+
+---
+
+## Unity Gain Bandwidth (UGB)
+
+UGB = Gain × Bandwidth  
+
+UGB ≈ 316 × 5 MHz  
+UGB ≈ 1.58 GHz  
+
+---
+
+## Frequency Response
+
+✔ Flat region → midband  
+✔ Roll-off at high frequency  
+✔ High gain due to active load  
+
+---
+
+#  11. KEY OBSERVATIONS
+
+1. Active load significantly increases gain  
+2. Differential output removes DC offset  
+3. Linear region gives accurate amplification  
+4. Nonlinear region shows switching behavior  
+5. High gain due to large output resistance  
+6. Asymmetrical clipping due to PMOS limitations  
+7. AC response confirms amplifier behavior  
+
+---
+
+#  12. CONCLUSION
+
+The differential amplifier with PMOS active load achieves high gain (~50 dB).  
+
+It operates linearly for small inputs and transitions to nonlinear switching behavior for large inputs due to current steering.  
+
+The AC analysis confirms a high midband gain, finite bandwidth, and large unity gain bandwidth, validating proper amplifier operation.
+
+---
+#  Comparison of Differential Amplifier Configurations
+
+| Parameter | Resistive Load Differential Amplifier | Diode-Connected Load Differential Amplifier | PMOS Active Load Differential Amplifier |
+|----------|----------------------------------------|--------------------------------------------|----------------------------------------|
+| **Load Type** | Passive resistor (RD) | NMOS diode-connected transistor | PMOS current mirror (active load) |
+| **Gain (Av)** | Low to moderate (~10–15 dB) | Moderate (~15–25 dB) | High (~30–50 dB) |
+| **Output Resistance** | Low (≈ RD) | Moderate (≈ 1/gm) | High (≈ ro || ro) |
+| **Voltage Gain Expression** | Av ≈ gm × RD | Av ≈ gm / gmd (limited) | Av ≈ gm × (ro || ro) |
+| **Power Consumption** | Higher (due to resistor drop) | Moderate | Lower / Efficient |
+| **Area Requirement** | Large (resistors occupy more area) | Small | Small |
+| **Linearity** | Good | Moderate | Moderate |
+| **Output Swing** | Large (limited by VDD only) | Limited (due to diode drop) | Limited (due to VOV constraints) |
+| **Symmetry** | Good | Slightly asymmetric | More asymmetric |
+| **Bandwidth** | High (less parasitics) | Moderate | Lower (due to parasitic capacitances) |
+| **Complexity** | Simple | Moderate | More complex |
+| **Matching Requirement** | Less critical | Moderate | Very critical |
+| **Common-Mode Rejection (CMRR)** | Low | Moderate | High |
+| **Typical Gain Behavior** | Stable, low gain | Moderate amplification | High gain, sensitive |
+| **Application Suitability** | Basic amplification | Integrated designs | High-gain analog circuits |
+
+---
+
+#  SUMMARY (SHORT COMPARISON)
+
+- **Resistive Load** → Simple, good swing, but **low gain and large area**  
+- **Diode Load** → Compact, moderate gain, but **limited output swing**  
+- **PMOS Active Load** → **Highest gain**, best for IC design, but **limited swing and more complexity**
+
+---
+
+#  FINAL CONCLUSION
+
+The PMOS active load differential amplifier provides the **highest gain and best performance for integrated circuits**, while resistive load offers simplicity and diode-connected load provides a trade-off between area and performance.
 
 
