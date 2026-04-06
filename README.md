@@ -926,7 +926,7 @@ Av ≈ 29.5 dB
 
 ##  (B) NON-LINEAR REGION
 
-![differentialamplifier](diff113.png)
+![differentialamplifier](diff13.png)
 
 Input:
 Vin1 = +0.3 V sin(1kHz)  
